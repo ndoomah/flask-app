@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Infectious Disease Surveillance</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/fontawesome.min.css')}}">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/templatemo-style.css')}}">
+
+    <!--custom css file-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/custom_file.css')}}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <script src="{{url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <!--
+    Product Admin CSS Template
+    https://templatemo.com/tm-524-product-admin
+    -->
+    <style>
+    .hide {
+  display: none;
+}
+.map-container {
+  text-align: center;
+}
+</style>
+    
+</head>
+
+<body id="reportsPage">
+    <div class="" id="home">
+        <nav class="navbar navbar-expand-xl">
+            <div class="container h-100">
+                <!--<a class="navbar-brand" href="index.html">
+                <figure class="icon-container">
+                <img src="{{url_for('static', filename='img/icon.png')}}" width="100" height="100" align="center" />
+                <figcaption class="icon-text"><h1 class="tm-site-title mb-0">Infectious Disease Surveillance</h1></figcaption>
+                </figure>
+
+                </a>-->
+                <!--<a class="navbar-brand" href="#">
+                    <img src="{{url_for('static', filename='img/icon-trans.png')}}" alt="Dispute Bills" class="rotate">
+        </a>-->
+        <div id="animateLogo" style="padding-top: 60px;>
+            <img src="{{url_for('static', filename='img/4.png')}}" width="150" height="150" />
+            <img src="{{url_for('static', filename='img/3.png')}}" width="150" height="150"/>
+            <img src="{{url_for('static', filename='img/2.png')}}" width="150" height="150"/>
+            <img src="{{url_for('static', filename='img/1.png')}}"  width="150" height="150"/>
+        </div>
+
+        <div id="logoText">
+            <img src="{{url_for('static',filename='img/iconText2.png')}}" width="200" height="200" />
+        </div>
+                
+                
+
+                <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars tm-nav-icon"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto h-100">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-home"></i>
+                                Home
+                                
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-chart-line"></i>
+                                <span>
+                                    Disease analytics <i class="fas fa-angle-down"></i>
+                                </span>
+                                <span class="sr-only">(current)</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">
+                                <i class="fas fa-stethoscope"></i> Disease Detection</a>
+                                <a class="dropdown-item" href="{{url_for('predict')}}">
+                                <i class="fas fa-heartbeat"></i> Disease Prediction</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('map_realtime')}}">
+                                <i class="fas fa-map-marked-alt"></i>
+                                Live map
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="accounts.html">
+                                <i class="fas fa-search"></i>
+                                Search
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-cog"></i>
+                                <span>
+                                    Settings <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="#">Billing</a>
+                                <a class="dropdown-item" href="#">Customize</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <!--
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link d-block" href="login.html">
+                                Admin, <b>Logout</b>
+                            </a>
+                        </li>
+                    </ul>-->
+                </div>
+            </div>
+
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col" style="text-align: center;">
+                    <p class="text-white mt-5 mb-5"><h1 class="tm-site-title mb-0">Disease Prediction</h1><p class="text-white"><i>For Mauritius</i></p></p>
+                </div>
+            </div>
+            <div class="row tm-content-row">
+                <div class="col-12 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block">
+                        <h2 class="tm-block-title">Interactive graphs</h2>
+                        <div class="map-container">
+  <div class="inner-basic division-map div-toggle" data-target=".division-details" id="divisiondetail">
+    <button class="map-point-sm w3-button w3-orange w3-hover-black" data-show=".darwin">
+      <div>
+        <div class="centered-y">
+          <p>Influenza</p>
+        </div>
+      </div>
+    </button>
+    <button class="map-point-sm w3-button w3-orange w3-hover-black" data-show=".ptown">
+      <div>
+        <div class="centered-y">
+          <p>Gastroenteritis</p>
+        </div>
+      </div>
+    </button>
+    <button class="map-point-sm w3-button w3-orange w3-hover-black" data-show=".philly">
+      <div>
+        <div class="centered-y">
+          <p>Conjunctivitis</p>
+        </div>
+      </div>
+    </button>
+    <button class="map-point-sm w3-button w3-orange w3-hover-black" data-show=".dela">
+      <div>
+        <div class="centered-y">
+          <p>Respiratory Infection</p>
+        </div>
+      </div>
+    </button>
+  </div>
+  <!-- end inner basic -->
+</div>
+
+<div class="map-container">
+  <div class="inner-basic division-details">
+    <div class="initialmsg">
+      <p>Choose button above</p>
+    </div>
+    <div class="darwin hide">
+      <iframe src="{{url_for('static', filename='influenza.html')}}" width="90%" height="300"></iframe>
+    </div>
+    <div class="ptown hide">
+      <iframe src="{{url_for('static', filename='gastroenteritis.html')}}" width="90%" height="300"></iframe>
+    </div>
+    <div class="philly hide">
+      <iframe src="{{url_for('static', filename='conjunctivitis.html')}}" width="90%" height="300"></iframe>
+    </div>
+    <div class="dela hide">
+      <iframe src="{{url_for('static', filename='respiratory infection.html')}}" width="90%" height="300"></iframe>
+    </div>
+  </div>
+</div>
+                
+            </div>
+        </div>
+                </div>
+                <div class="row tm-content-row">
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                        <h2 class="tm-block-title">Influenza</h2>
+                            
+                                        <img src="{{url_for('static',filename='img/influenza.png')}}"/>
+                                
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                                                <h2 class="tm-block-title">Gastroenteritis</h2>
+
+                            
+                                        <img src="{{url_for('static',filename='img/gastroenteritis.png')}}"/>
+                                
+                        </div>
+                    </div>
+                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                                                <h2 class="tm-block-title">Conjunctivitis</h2>
+
+                            
+                                     
+                                        <img src="{{url_for('static',filename='img/conjunctivitis.png')}}"/>
+                                
+                        </div>
+                    </div>
+                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                        <h2 class="tm-block-title">Respiratory infection</h2>
+                            
+                                        <img src="{{url_for('static',filename='img/respiratory infection.png')}}" />
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        <footer class="tm-footer row tm-mt-small">
+            <div class="col-12 font-weight-light">
+                <p class="text-center text-white mb-0 px-4 small">
+                    Copyright &copy; <b>2018</b> All rights reserved. 
+                    
+                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="{{url_for('static', filename='js/moment.min.js')}}"></script>
+    <!-- https://momentjs.com/ -->
+    <script src="{{url_for('static', filename='js/Chart.min.js')}}"></script>
+    <!-- http://www.chartjs.org/docs/latest/ -->
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script src="{{url_for('static', filename='js/tooplate-scripts.js')}}"></script>
+    <script src="{{url_for('static', filename='js/logo_animate.js')}}"></script>
+    <script>
+       $(document).on('click', '.map-point-sm', function() {
+  var show = $(this).data('show');
+  $(show).removeClass("hide").siblings().addClass("hide");
+});
+    </script>
+</body>
+</html>
