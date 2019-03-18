@@ -168,6 +168,6 @@ def notif_connect():
 def test_message():
     socketio.emit('newdata', {'lat': '-20.2233014','lng': '57.5382649'}, namespace='/test')'''
 
-if __name__ == "__main__":
-    socketio.run(app)
+#if __name__ == "__main__":
+socketio.run(app)
     #app.run()
