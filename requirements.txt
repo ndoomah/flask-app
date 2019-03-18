@@ -19,7 +19,6 @@ feedparser==5.2.1
 folium==0.7.0
 future==0.17.1
 fuzzywuzzy==0.17.0
-GDAL==2.3.3
 geographiclib==1.49
 geopandas==0.4.0
 geopy==1.18.1
