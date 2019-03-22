@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Maurihealth Homepage</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/fontawesome.min.css')}}">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/templatemo-style.css')}}">
+
+    <!--custom css file-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/custom_file.css')}}">
+
+    <script src="{{url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <!--
+	Product Admin CSS Template
+	https://templatemo.com/tm-524-product-admin
+	-->
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.js"></script>
+
+
+    <script type="text/javascript" src="https://pubnub.github.io/eon/v/eon/1.1.0/eon.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://pubnub.github.io/eon/v/eon/1.1.0/eon.css"/>
+    
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+
+<body id="reportsPage">
+    <div class="" id="home">
+        <nav class="navbar navbar-expand-xl">
+            <div class="container h-100">
+        <div id="animateLogo" class="navbar-brand" style="width: 13%; height: 13%px;">
+            <img src="{{url_for('static', filename='img/4.png')}}" width="75%" height="75%" />
+            <img src="{{url_for('static', filename='img/3.png')}}" width="75%" height="75%"/>
+            <img src="{{url_for('static', filename='img/2.png')}}" width="75%" height="75%"/>
+            <img src="{{url_for('static', filename='img/1.png')}}"  width="75%" height="75%"/>
+        </div>
+        <div class="navbar-brand" style="width: 20%; height: 20%px;">
+            <img src="{{url_for('static',filename='img/iconText2.png')}}"  style="float: left; padding: 2px;" width="100%" height="100%" /> 
+        </div>
+
+                <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars tm-nav-icon"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto h-100">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="fas fa-home"></i>
+                                Home
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-chart-line"></i>
+                                <span>
+                                    Disease analytics <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">
+                                <i class="fas fa-stethoscope"></i> Disease Detection</a>
+                                <a class="dropdown-item" href="{{url_for('predict')}}">
+                                <i class="fas fa-heartbeat"></i> Disease Prediction</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('map_realtime')}}">
+                                <i class="fas fa-map-marked-alt"></i>
+                                Live map
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="accounts.html">
+                                <i class="fas fa-search"></i>
+                                Search
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-cog"></i>
+                                <span>
+                                    Settings <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="#">Billing</a>
+                                <a class="dropdown-item" href="#">Customize</a>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="text-white mt-5 mb-5" style="text-align: center; font-size: 20px;">Infectious Disease Surveillance System
+                        <br>
+                        <i>For Mauritius</i></p>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row tm-content-row">
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
+                        <h2 class="tm-block-title">Notification List</h2>
+                        <div id="notifs" class="tm-notification-items">
+                                <!--<p class="mb-5"> No notifications for the time being! </p>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
+                        <h2 class="tm-block-title">Newspaper articles related to infectious diseases in Mauritius</h2>
+                        <div class="tm-notification-items">
+                            {% for article in result %}
+                            <div class="media tm-notification-item">
+                                <div class="tm-gray-circle"><img src="{{article['image']}}" width="80" height="80" alt="Avatar Image" class="rounded-circle"></div>
+                                <div class="media-body">
+                                    <p class="mb-2">
+                                        <h3>Heading: {{article['title']}}</h3>
+
+                                        <b>Content:</b> {{article['text']}}
+                                        <a href="{{article['link']}}"
+                                            class="tm-notification-link">Click here to know more.</a></p>
+                                    <span class="tm-small tm-text-color-secondary">{{ article['published'] }}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 tm-block-col">
+                <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
+                        <h1 class="tm-block-title">All you need to know about the common infectious diseases in Mauritius. </h1>
+
+                        <div class="tab_v">
+  <button class="tablinks" onclick="openCity(event, 'flu')" id="defaultOpen">Influenza</button>
+  <button class="tablinks" onclick="openCity(event, 'gastro')">Gastroenteritis</button>
+  <button class="tablinks" onclick="openCity(event, 'pinkeye')">Conjunctivitis</button>
+  <button class="tablinks" onclick="openCity(event, 'utr')">Respiratory Infection</button>
+</div>
+
+<div id="flu" class="tabcontent tm-block-taller tm-block-scroll">
+<div class = "tab-wrap">
+    <input type="radio" id="tab1" name="tabGroup1" class="tab" checked>
+    <label for="tab1"><i class="fas fa-star"></i> Overview</label>
+
+    <input type="radio" id="tab2" name="tabGroup1" class="tab">
+    <label for="tab2"><i class="fas fa-allergies"></i> Causes</label>
+
+    <input type="radio" id="tab3" name="tabGroup1" class="tab">
+    <label for="tab3"><i class="far fa-dizzy"></i> Symptoms</label>
+    
+    <input type="radio" id="tab4" name="tabGroup1" class="tab">
+    <label for="tab4"><i class="fas fa-medkit"></i> Treatment</label>
+    
+    <input type="radio" id="tab5" name="tabGroup1" class="tab">
+    <label for="tab5"><i class="far fa-smile"></i> Prevention</label>
+    
+
+    <div class="tab__content">
+      <h3>Overview</h3>
+      <div class="disease-icon"><img src="{{disease[0]['image']}}" width="100" height="100" alt="Avatar Image" class="rounded-circle"></div>
+      <p class="mb-2">{{disease[0]['overview']}}</p>
+    </div>
+
+    <div class="tab__content">
+      <h3>Causes</h3>
+      <p class="mb-2">{{disease[0]['causes']}}</p>
+    </div>
+
+    <div class="tab__content">
+      <h3>Symptoms</h3>
+      <p class="mb-2">{{disease[0]['symptoms']}}</p>
+    </div>
+    <div class="tab__content">
+        <h3>Treatment</h3>
+        <p class="mb-2">{{disease[0]['treatment']}}</p>
+    </div>
+    <div class="tab__content">
+        <h3>Prevention</h3>
+        <p class="mb-2">{{disease[0]['prevention']}}</p>
+    </div>
+</div>
+</div>
+
+<div id="gastro" class="tabcontent tm-block-taller tm-block-scroll">
+ <div class="tab-wrap">
+    <input type="radio" id="tab6" name="tabGroup2" class="tab" checked>
+    <label for="tab6"><i class="fas fa-star"></i> Overview</label>
+
+    <input type="radio" id="tab7" name="tabGroup2" class="tab">
+    <label for="tab7"><i class="fas fa-allergies"></i> Causes</label>
+
+    <input type="radio" id="tab8" name="tabGroup2" class="tab">
+    <label for="tab8"><i class="far fa-dizzy"></i> Symptoms</label>
+    
+    <input type="radio" id="tab9" name="tabGroup2" class="tab">
+    <label for="tab9"><i class="fas fa-medkit"></i> Treatment</label>
+    
+    <input type="radio" id="tab10" name="tabGroup2" class="tab">
+    <label for="tab10"><i class="far fa-smile"></i> Prevention</label>
+    
+
+    <div class="tab__content">
+      <h3>Overview</h3>
+      <div class="disease-icon"><img src="{{disease[1]['image']}}" width="100" height="100" alt="Avatar Image" class="rounded-circle"></div>
+      <p class="mb-2">{{disease[1]['overview']}}</p>
+    </div>
+
+    <div class="tab__content">
+      <h3>Causes</h3>
+      <p class="mb-2">{{disease[1]['causes']}}</p>
+    </div>
+
+    <div class="tab__content">
+      <h3>Symptoms</h3>
+      <p class="mb-2">{{disease[1]['symptoms']}}</p>
+    </div>
+    <div class="tab__content">
+        <h3>Treatment</h3>
+        <p class="mb-2">{{disease[1]['treatment']}}</p>
+    </div>
+    <div class="tab__content">
+        <h3>Prevention</h3>
+        <p class="mb-2">{{disease[1]['prevention']}}</p>
+    </div>
+
+  </div>
+</div>
+<div id="pinkeye" class="tabcontent tm-block-taller tm-block-scroll">
+<div class = "tab-wrap">
+    <input type="radio" id="tab11" name="tabGroup3" class="tab" checked>
+    <label for="tab11"><i class="fas fa-star"></i> Overview</label>
+
+    <input type="radio" id="tab12" name="tabGroup3" class="tab">
+    <label for="tab12"><i class="fas fa-allergies"></i> Causes</label>
+
+    <input type="radio" id="tab13" name="tabGroup3" class="tab">
+    <label for="tab13"><i class="far fa-dizzy"></i> Symptoms</label>
+    
+    <input type="radio" id="tab14" name="tabGroup3" class="tab">
+    <label for="tab14"><i class="fas fa-medkit"></i> Treatment</label>
+    
+    <input type="radio" id="tab15" name="tabGroup3" class="tab">
+    <label for="tab15"><i class="far fa-smile"></i> Prevention</label>
+    
+
+    <div class="tab__content">
+      <h3>Overview</h3>
+      <div class="disease-icon"><img src="{{disease[2]['image']}}" width="100" height="100" alt="Avatar Image" class="rounded-circle"></div>
+      <p class="mb-2">{{disease[2]['overview']}}</p>
+    </div>
+
+    <div class="tab__content">
+      <h3>Causes</h3>
+      <p class="mb-2">{{disease[2]['causes']}}</p>
+    </div>
+
+    <div class="tab__content">
+      <h3>Symptoms</h3>
+      <p class="mb-2">{{disease[2]['symptoms']}}</p>
+    </div>
+    <div class="tab__content">
+        <h3>Treatment</h3>
+        <p class="mb-2">{{disease[2]['treatment']}}</p>
+    </div>
+    <div class="tab__content">
+        <h3>Prevention</h3>
+        <p class="mb-2">{{disease[2]['prevention']}}</p>
+    </div>
+</div>
+</div>
+<div id="utr" class="tabcontent tm-block-taller tm-block-scroll">
+<div class = "tab-wrap">
+    <input type="radio" id="tab16" name="tabGroup4" class="tab" checked>
+    <label for="tab16"><i class="fas fa-star"></i> Overview</label>
+
+    <input type="radio" id="tab17" name="tabGroup4" class="tab">
+    <label for="tab17"><i class="fas fa-allergies"></i> Causes</label>
+
+    <input type="radio" id="tab18" name="tabGroup4" class="tab">
+    <label for="tab18"><i class="far fa-dizzy"></i> Symptoms</label>
+    
+    <input type="radio" id="tab19" name="tabGroup4" class="tab">
+    <label for="tab19"><i class="fas fa-medkit"></i> Treatment</label>
+    
+    <input type="radio" id="tab20" name="tabGroup4" class="tab">
+    <label for="tab20"><i class="far fa-smile"></i> Prevention</label>
+    
+
+    <div class="tab__content">
+      <h3>Overview</h3>
+      <div class="disease-icon"><img src="{{disease[3]['image']}}" width="100" height="100" alt="Avatar Image" class="rounded-circle"></div>
+      <p class="mb-2">{{disease[3]['overview']}}</p>
+    </div>
+
+    <div class="tab__content">
+      <h3>Causes</h3>
+      <p class="mb-2">{{disease[3]['causes']}}</p>
+    </div>
+
+    <div class="tab__content">
+      <h3>Symptoms</h3>
+      <p class="mb-2">{{disease[3]['symptoms']}}</p>
+    </div>
+    <div class="tab__content">
+        <h3>Treatment</h3>
+        <p class="mb-2">{{disease[3]['treatment']}}</p>
+    </div>
+    <div class="tab__content">
+        <h3>Prevention</h3>
+        <p class="mb-2">{{disease[3]['prevention']}}</p>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    var update = function () {
+    date = moment(new Date())
+    datetime.html(date);
+};
+
+var pubnub = new PubNub({
+        publishKey: 'pub-c-59f395ef-c07a-486a-82a1-3ad84a286db3',
+        subscribeKey: 'sub-c-62049fb8-26c1-11e9-9ee5-ae9cce607226'
+      });
+
+      var channel = 'pubnub-mapbox'
+
+    $(document).ready(function(){
+    
+    pubnub.history(
+{
+    channel: channel,
+    count: 10,
+    stringifiedTimeToken: true // false is the default
+    },
+    function (status, response) {
+        console.log(JSON.stringify(response));
+        var data = response;
+        var msg = data.messages;
+        for (var i=0; i<msg.length; i++){
+            var obj = msg[i];
+            var entry = obj.entry;
+            var diseasename = entry.dis;
+            var loc = entry.location;
+            var time = entry.time;
+            var dashboard = $('#notifs');
+        var notif_item = $('<div>',{class: 'media tm-notification-item'});
+        var div_one = $('<div>',{class: 'tm-gray-circle'});
+            var img = $('<img>',{
+                src: "{{url_for('static',filename='img/flu.jpg')}}", 
+                class: 'rounded-circle', width:80, height:80});
+            div_one.append(img);
+            notif_item.append(div_one);
+       var div_two =  $('<div>', {class:'media-body'});
+        var para = div_two.append($('<p>', {class:'mb-2'}));
+            para.append("Disease alert: "+diseasename+ " in "+loc+ "\n");
+        var small = $('<span>', {class: 'tm-small tm-text-color-secondary'});
+        small.append(time);
+        div_two.append(small);
+       
+        notif_item.append(div_two);
+
+        dashboard.prepend(notif_item);
+        }
+});
+});
+
+    
+
+    /*if(document.getElementById('datetime')) {
+    setInterval(update, 1000);
+}*/
+</script>
+                <button class="w3-btn w3-block w3-orange">
+                    <a href="http://maurihealth.herokuapp.com/index.html" target="_blank">Go to disease data collection portal</a> 
+                </button>
+
+            
+            </div>
+        
+        <footer class="tm-footer row tm-mt-small">
+            <div class="col-12 font-weight-light">
+                <p class="text-center text-white mb-0 px-4 small">
+                    Copyright &copy; <b>2019</b> All rights reserved. 
+                    
+                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+                </p>
+            </div>
+        </footer>
+        </div>
+</div>
+    
+    <!-- https://jquery.com/download/ -->
+    <script src="{{url_for('static', filename='js/moment.min.js')}}"></script>
+    <!-- https://momentjs.com/ -->
+    <script src="{{url_for('static', filename='js/Chart.min.js')}}"></script>
+    <!-- http://www.chartjs.org/docs/latest/ -->
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script src="{{url_for('static', filename='js/tooplate-scripts.js')}}"></script>
+    <script src="{{url_for('static', filename='js/logo_animate.js')}}"></script>
+    <script>
+
+
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+    </script>
+</body>
+
+</html>

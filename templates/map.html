@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Infectious Disease Surveillance</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/fontawesome.min.css')}}">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/templatemo-style.css')}}">
+
+    <!--custom css file-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/custom_file.css')}}">
+
+    <script src="{{url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
+    
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.js"></script>
+
+
+    <script type="text/javascript" src="https://pubnub.github.io/eon/v/eon/1.1.0/eon.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://pubnub.github.io/eon/v/eon/1.1.0/eon.css"/>
+
+     <!-- <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.sparkline.min.js"></script>
+         -->
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <!--
+    Product Admin CSS Template
+    https://templatemo.com/tm-524-product-admin
+    -->
+    
+</head>
+
+<body id="reportsPage">
+    <div class="" id="home">
+        <nav class="navbar navbar-expand-xl">
+            <div class="container h-100">
+                
+        <div id="animateLogo" class="navbar-brand" style="width: 13%; height: 13%px;">
+            <img src="{{url_for('static', filename='img/4.png')}}" width="75%" height="75%" />
+            <img src="{{url_for('static', filename='img/3.png')}}" width="75%" height="75%"/>
+            <img src="{{url_for('static', filename='img/2.png')}}" width="75%" height="75%"/>
+            <img src="{{url_for('static', filename='img/1.png')}}"  width="75%" height="75%"/>
+        </div>
+        <div class="navbar-brand" style="width: 20%; height: 20%px;">
+            <img src="{{url_for('static',filename='img/iconText2.png')}}"  style="float: left; padding: 2px;" width="100%" height="100%" /> 
+        </div>
+                
+                
+
+                <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars tm-nav-icon"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto h-100">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-home"></i>
+                                Home
+                                
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-chart-line"></i>
+                                <span>
+                                    Disease analytics <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">
+                                <i class="fas fa-stethoscope"></i> Disease Detection</a>
+                                <a class="dropdown-item" href="{{url_for('predict')}}">
+                                <i class="fas fa-heartbeat"></i> Disease Prediction</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{url_for('map_realtime')}}">
+                                <i class="fas fa-map-marked-alt"></i>
+                                Live map
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="accounts.html">
+                                <i class="fas fa-search"></i>
+                                Search
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-cog"></i>
+                                <span>
+                                    Settings <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="#">Billing</a>
+                                <a class="dropdown-item" href="#">Customize</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <!--
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link d-block" href="login.html">
+                                Admin, <b>Logout</b>
+                            </a>
+                        </li>
+                    </ul>-->
+                </div>
+            </div>
+
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="text-white mt-5 mb-5" style="text-align: center; font-size: 20px;">
+                        Live Mauritius Map <br>
+                        <i>Sources: Facebook, Twitter, Crowdsourcing app</i></p>
+                </div>
+            </div>
+            <div class = "row" style="padding: 20px;">
+                <div class="col" style="border-style: solid; border-width: 2px; border-color: #f5a623; padding: 20px;">
+                    <table style="text-align: center;">
+                        <tr>
+                            <td><img src="{{url_for('static', filename='img/red_marker.png')}}" width="30" height="45" /></td>
+                            <td> <h2 class="tm-block-title">Influenza cases</h2></td>
+                        </tr>
+                        <tr>
+                            <td><img src="http://api.tiles.mapbox.com/mapbox.js/v3.1.1/images/marker-icon.png" width="30" height="45" /></td>
+                            <td> <h2 class="tm-block-title">Gastroenteritis cases</h2></td>
+                        </tr>
+                        <tr>
+                            <td><img src="{{url_for('static', filename='img/yellow_marker.png')}}" width="30" height="45" /></td>
+                            <td> <h2 class="tm-block-title">Conjunctivitis cases</h2></td>
+                        </tr>
+                        <tr>
+                            <td><img src="{{url_for('static', filename='img/green_marker.png')}}" width="30" height="45" /></td>
+                            <td> <h2 class="tm-block-title">Respiratory infection cases</h2></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row tm-content-row">
+                <div style="width: 100%; height:500px" id="map"></div>
+                <div id='map'></div>
+                <div id='msg'></div>
+                <script>
+      var pubnub = new PubNub({
+        publishKey: 'pub-c-59f395ef-c07a-486a-82a1-3ad84a286db3',
+        subscribeKey: 'sub-c-62049fb8-26c1-11e9-9ee5-ae9cce607226'
+      });
+      //var channel = 'pubnub-mapbox' + getNonZeroRandomNumber();
+      var channel = 'pubnub-mapbox'
+      var map = eon.map({
+        pubnub: pubnub,
+        id: 'map',
+        mbToken: 'pk.eyJ1IjoiZG9vbWFobiIsImEiOiJjanJva3g0MGowNGFvNDRwNmNmdXk3Ymx2In0.dHjGj5mZVbr0Hi_jD_oNkw',
+        mbId: 'ianjennings.l896mh2e',
+        channels: [channel],
+        message: function(data) {
+        map.setView(data.latlng);
+        
+      },
+        history: true,
+        options: {
+          zoom: 10.5,
+          center: [-20.2759451, 57.5703566]
+        }
+      });
+
+ //Client-side Javascript code for handling random numbers
+ var loc_arr = [];
+$(document).ready(function(){
+    //connect to the socket server.
+    var socket = io.connect('http://' + document.domain + ':' + location.port + '/test');
+    var lat, lng;
+     socket.on('connect', function() {
+                console.log("Connection successful");
+            });
+    //receive details from server
+    socket.on('newdata', function(msg) {
+        console.log("Received data");
+
+        lat = msg.lat;
+        lng = msg.lng;
+        console.log(lat + " " + lng);
+
+        var point = {
+          latlng: [msg.lat, msg.lng],
+          dis: msg.dis,
+          time: msg.time,
+          location: msg.location
+        };
+
+        pubnub.publish({
+            channel: channel,
+            message: point,
+            storeInHistory: true
+}
+          );
+        var marker;
+        if (point.dis.includes('influenza')){
+        marker = setMarkerColor(point.latlng, 'red');
+    }
+    if (point.dis.includes('conjunctivitis')){
+        marker = setMarkerColor(point.latlng, 'yellow');
+    }
+    if (point.dis.includes('respiratory infection')){
+        marker = setMarkerColor(point.latlng, 'green');
+    }
+    else {
+        marker = L.marker(point.latlng);
+    }
+
+        marker.bindPopup('Disease alert: '+point.dis+' at '+point.time);
+        marker.addTo(map);
+
+
+    });
+});
+
+pubnub.history(
+{
+    channel: channel,
+    count: 10,
+    stringifiedTimeToken: true // false is the default
+    },
+    function (status, response) {
+        console.log(JSON.stringify(response));
+        var data = response;
+        var msg = data.messages;
+        for (var i=0; i<msg.length; i++){
+            var obj = msg[i];
+            var entry = obj.entry;
+            var mark; 
+            if (entry.dis.includes('influenza')){
+        mark = setMarkerColor(entry.latlng, 'red');
+    }
+    if (entry.dis.includes('conjunctivitis')){
+        mark = setMarkerColor(entry.latlng, 'yellow');
+    }
+    if (entry.dis.includes('respiratory infection')){
+        mark = setMarkerColor(entry.latlng, 'green');
+    }
+    else{
+        mark = L.marker(entry.latlng);
+    }
+            mark.bindPopup('Disease alert: '+entry.dis+' at '+entry.time);
+            mark.addTo(map);
+        }
+});
+function setMarkerColor(latlng, color) {
+    var marker;
+   if (color == 'green'){
+   marker = L.marker(latlng,
+            { icon: L.icon({ 
+                iconUrl: "{{url_for('static', filename='img/green_marker.png')}}",
+                iconSize:[26, 41]})
+                  });
+}
+else
+    if (color == 'red'){
+   marker = L.marker(latlng,
+            { icon: L.icon({ 
+                iconUrl: "{{url_for('static', filename='img/red_marker.png')}}",
+                iconSize:[26, 41]})
+                  });
+}
+else 
+ if(color == 'yellow'){
+   marker = L.marker(latlng,
+            { icon: L.icon({ 
+                iconUrl: "{{url_for('static', filename='img/yellow_marker.png')}}",
+                iconSize:[26, 41]})
+                  });
+}
+   return marker;
+}
+</script>
+</div>
+        </div>
+        <footer class="tm-footer row tm-mt-small">
+            <div class="col-12 font-weight-light">
+                <p class="text-center text-white mb-0 px-4 small">
+                    Copyright &copy; <b>2018</b> All rights reserved. 
+                    
+                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="{{url_for('static', filename='js/moment.min.js')}}"></script>
+    <!-- https://momentjs.com/ -->
+    <script src="{{url_for('static', filename='js/Chart.min.js')}}"></script>
+    <!-- http://www.chartjs.org/docs/latest/ -->
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script src="{{url_for('static', filename='js/tooplate-scripts.js')}}"></script>
+    <script src="{{url_for('static', filename='js/logo_animate.js')}}"></script>
+    </body>
+    </html>
