@@ -170,6 +170,7 @@ def test_message():
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT'))
+    print(port)
     socketio.run(app, host='0.0.0.0', port=port, resource="socket.io", policy_server=False)
     #socketio.run(app)
     #app.run()
