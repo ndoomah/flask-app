@@ -15,7 +15,6 @@ decorator==4.3.0
 dnspython==1.16.0
 dnspython3==1.15.0
 download==0.3.3
-eventlet==0.24.1
 feedfinder2==0.0.4
 feedparser==5.2.1
 Flask==1.0.2
@@ -44,7 +43,6 @@ MarkupSafe==1.1.0
 matplotlib==3.0.2
 monotonic==1.5
 munch==2.3.2
-newspaper3k==0.2.7
 nltk==3.3
 numpy==1.16.0
 oauthlib==2.1.0
@@ -66,7 +64,6 @@ python-dotenv==0.10.1
 python-engineio==3.3.0
 python-Levenshtein==0.12.0
 python-socketio==3.1.2
-pytrends==4.4.0
 pytz==2018.7
 PyYAML==3.13
 queuelib==1.5.0
@@ -83,7 +80,6 @@ tinysegmenter==0.3
 tldextract==2.2.0
 tqdm==4.29.1
 traitlets==4.3.2
-tweepy==3.6.0
 twython==3.7.0
 urllib3==1.23
 wcwidth==0.1.7
