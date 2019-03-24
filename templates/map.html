@@ -257,7 +257,7 @@ $(document).ready(function(){
                 });
 }
     
-        marker.bindPopup('Disease alert: '+point.dis+' at '+point.time);
+        marker.bindPopup('Disease alert: '+point.dis+' at '+point.time+' in '+point.location);
         marker.addTo(map);
 
     });
@@ -319,7 +319,7 @@ pubnub.history(
                     title: 'Respiratory Infection alert!'
                 });
     }
-            mark.bindPopup('Disease alert: '+entry.dis+' at '+entry.time);
+            mark.bindPopup('Disease alert: '+entry.dis+' at '+entry.time+' in '+entry.location);
             mark.addTo(map);
         }
 });
