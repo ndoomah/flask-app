@@ -215,6 +215,7 @@ $(document).ready(function(){
 }
           );
         var marker;
+        var count=1;
         switch (point.dis){
             case 'influenza':
             marker = L.marker(point.latlng,
@@ -257,11 +258,16 @@ $(document).ready(function(){
                 });
 }
     
-        marker.bindPopup('Disease alert: '+point.dis+' at '+point.time+' in '+point.location);
+        if (compareLoc.includes(point.location)){
+            count++;
+        }
+        compareLoc.push(point.location);
+        marker.bindPopup('Disease alert: '+point.dis+' at '+point.time+' in '+point.location+ ' Num of cases(including previous entries): '+count);
         marker.addTo(map);
 
     });
 });
+var compareLoc=[];
 
 pubnub.history(
 {
@@ -321,6 +327,8 @@ pubnub.history(
     }
             mark.bindPopup('Disease alert: '+entry.dis+' at '+entry.time+' in '+entry.location);
             mark.addTo(map);
+            compareLoc.push(entry.location);
+
         }
 });
 function setMarkerGreen(latlng) {
