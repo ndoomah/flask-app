@@ -2,7 +2,7 @@ import json
 import os
 from threading import Thread, Event
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_socketio import SocketIO
 from xml.dom import minidom
 
@@ -63,6 +63,35 @@ def getLocationCoord(loc):
 	long = location.longitude
 	lat = location.latitude
 	return (long, lat)
+
+def retrieve_analysedData(diseaseDB,value):
+    collection = diseaseDB
+    #input_analysedData = collection.find({})
+    input_analysedData = collection.find({"disease": value})
+    return input_analysedData
+
+def retrieve_ALLanalysedData(diseaseDB):
+    collection = diseaseDB
+    #input_analysedData = collection.find({})
+    input_analysedData = collection.find({})
+    return input_analysedData
+
+def retrieve_CountData(diseaseDB,value):
+    collection = diseaseDB
+    item_count = collection.count_documents({"disease": value})
+    return item_count
+
+def retrieve_ALLnumCases():
+    client = pymongo.MongoClient(DB_URI)
+    db = client.test2
+    collection = db.totalData
+    #input_analysedData = collection.find({})
+    totDisease = collection.find({"disease": "All_diseases"})
+    totinfluenza = collection.find({ "disease" : "influenza" })
+    totgastro = collection.find({"disease": "gastroenteritis"})
+    totconjunc = collection.find({"disease": "conjunctivitis"})
+    totRespiratory = collection.find({"disease": "respiratoryinfection"})
+    return totDisease,totinfluenza,totgastro,totconjunc,totRespiratory
 
 class RandomThread(Thread):
     def __init__(self):
@@ -132,6 +161,10 @@ socketio = SocketIO(app)
 def index():
     return render_template('index.html', result=getArticles(), disease=getDiseaseInfo())
 
+@app.route("/home")
+def home():
+    return render_template('index.html', result=getArticles(), disease=getDiseaseInfo())
+
 @app.route("/map_realtime")
 def map_realtime():
     return render_template('map.html')
@@ -139,6 +172,32 @@ def map_realtime():
 @app.route("/predict")
 def predict():
     return render_template('predict.html')
+
+@app.route("/detect/")
+def detect():
+    return render_template('detect.html')
+
+@app.route("/search/",methods=["GET", "POST"])
+def search():
+    client = pymongo.MongoClient(DB_URI)
+    db = client.test2
+    if request.method == 'POST':
+            search_value = request.form['search'];
+            # search_value = request.form.get('search')
+            print(search_value)
+            # datainflu = connect_db.retrieve_analysedData_influenza("influenza")
+            data = retrieve_analysedData(db.analysedData,search_value)
+            #print(data.count())
+            count = retrieve_CountData(db.analysedData,search_value)
+            print(count)
+            if (count==0):
+                return render_template('search.html', nodata="no results found")
+            else:
+                return render_template('search.html', myvalue=data, disease=search_value, disease_header="DISEASE",epoch_header="EPOCH",observed_header="OBSERVED",alarm_header="ALARM")
+    else:
+        data = retrieve_ALLanalysedData(db.analysedData)
+        totdisease,influenza,gastro,conjunc,respiratory = retrieve_ALLnumCases()
+        return render_template('search.html', myvalue=data, disease_header="DISEASE",epoch_header="EPOCH",observed_header="OBSERVED",alarm_header="ALARM",totcases=totdisease,cases_influenza=influenza,cases_gastro=gastro,cases_conjunc=conjunc,cases_respi=respiratory)
 
 
 @socketio.on('connect', namespace='/test')

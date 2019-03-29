@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Infectious Disease Surveillance</title>
+    <title>Maurihealth Map</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <!-- https://fonts.google.com/specimen/Roboto -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/fontawesome.min.css')}}">
@@ -62,7 +62,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto h-100">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{url_for('home')}}">
                                 <i class="fas fa-home"></i>
                                 Home
                                 
@@ -78,7 +78,7 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{url_for('detect')}}">
                                 <i class="fas fa-stethoscope"></i> Disease Detection</a>
                                 <a class="dropdown-item" href="{{url_for('predict')}}">
                                 <i class="fas fa-heartbeat"></i> Disease Prediction</a>
@@ -93,7 +93,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="accounts.html">
+                            <a class="nav-link" href="{{url_for('search')}}">
                                 <i class="fas fa-search"></i>
                                 Search
                             </a>
@@ -136,24 +136,7 @@
             <div class = "row" style="padding: 20px;">
                 <div class="col" style="border-style: solid; border-width: 2px; border-color: #f5a623; padding: 20px;">
                     <p class="text-white"> Hover or click over markers for more information about disease cases. </p>
-                    <!--<table style="text-align: center;">
-                        <tr>
-                            <td><img src="{{url_for('static', filename='img/red_marker.png')}}" width="30" height="45" /></td>
-                            <td> <h2 class="tm-block-title">Influenza cases</h2></td>
-                        </tr>
-                        <tr>
-                            <td><img src="http://api.tiles.mapbox.com/mapbox.js/v3.1.1/images/marker-icon.png" width="30" height="45" /></td>
-                            <td> <h2 class="tm-block-title">Gastroenteritis cases</h2></td>
-                        </tr>
-                        <tr>
-                            <td><img src="{{url_for('static', filename='img/yellow_marker.png')}}" width="30" height="45" /></td>
-                            <td> <h2 class="tm-block-title">Conjunctivitis cases</h2></td>
-                        </tr>
-                        <tr>
-                            <td><img src="{{url_for('static', filename='img/green_marker.png')}}" width="30" height="45" /></td>
-                            <td> <h2 class="tm-block-title">Respiratory infection cases</h2></td>
-                        </tr>
-                    </table>-->
+                    
                 </div>
             </div>
             <div class="row tm-content-row">
@@ -373,9 +356,9 @@ function setMarkerYellow(latlng) {
         <footer class="tm-footer row tm-mt-small">
             <div class="col-12 font-weight-light">
                 <p class="text-center text-white mb-0 px-4 small">
-                    Copyright &copy; <b>2018</b> All rights reserved. 
+                    Copyright &copy; <b>2019</b> All rights reserved. 
                     
-                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+                   <!-- Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>-->
                 </p>
             </div>
         </footer>

@@ -55,7 +55,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto h-100">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link active" href="">
                                 <i class="fas fa-home"></i>
                                 Home
                                 <span class="sr-only">(current)</span>
@@ -71,7 +71,7 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{url_for('detect')}}">
                                 <i class="fas fa-stethoscope"></i> Disease Detection</a>
                                 <a class="dropdown-item" href="{{url_for('predict')}}">
                                 <i class="fas fa-heartbeat"></i> Disease Prediction</a>
@@ -85,7 +85,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="accounts.html">
+                            <a class="nav-link" href="{{url_for('search')}}">
                                 <i class="fas fa-search"></i>
                                 Search
                             </a>
@@ -408,7 +408,7 @@ var pubnub = new PubNub({
                 <p class="text-center text-white mb-0 px-4 small">
                     Copyright &copy; <b>2019</b> All rights reserved. 
                     
-                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+                   <!-- Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>-->
                 </p>
             </div>
         </footer>
