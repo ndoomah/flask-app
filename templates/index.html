@@ -90,6 +90,17 @@
                                 Search
                             </a>
                         </li>
+                        <!--- LANGUAGE SETTINGS ---->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                               <!--<i class="fas fa-cog"></i>  -->
+                                <span id='MicrosoftTranslatorWidget' class='Dark' style='color:white;background-color:#555555'>
+                                    <!--<i class="fas fa-angle-down"></i>-->
+                                </span>
+                            </a>
+
+                        </li>
+                        <!--
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -103,7 +114,7 @@
                                 <a class="dropdown-item" href="#">Billing</a>
                                 <a class="dropdown-item" href="#">Customize</a>
                             </div>
-                        </li>
+                        </li>-->
                     </ul>
                     
                 </div>
@@ -424,6 +435,7 @@ var pubnub = new PubNub({
     <!-- https://getbootstrap.com/ -->
     <script src="{{url_for('static', filename='js/tooplate-scripts.js')}}"></script>
     <script src="{{url_for('static', filename='js/logo_animate.js')}}"></script>
+    <script src="{{url_for('static', filename='js/translate.js')}}"></script>
     <script>
 
 
