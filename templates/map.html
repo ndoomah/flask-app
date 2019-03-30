@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Maurihealth Map</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <!-- https://fonts.google.com/specimen/Roboto -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/fontawesome.min.css')}}">
     <!-- https://fontawesome.com/ -->
@@ -325,42 +325,10 @@ pubnub.history(
 
         }
 });
-function setMarkerGreen(latlng) {
-    var marker;
-   marker = L.marker(latlng,
-            { icon: L.icon({ 
-                iconUrl: "{{url_for('static', filename='img/green_marker.png')}}",
-                iconSize:[26, 41],
-                iconAnchor: latlng
-            })
-                  });
-   return marker;
-}
-function setMarkerRed(latlng) {
-    var marker;
-   marker = L.marker(latlng,
-            { icon: L.icon({ 
-                iconUrl: "{{url_for('static', filename='img/red_marker.png')}}",
-                iconSize:[26, 41],
-                iconAnchor: latlng
+// Add legend to map //
+L.mapbox.legendControl({ position: 'topleft' }).addLegend('<strong>Map markers colour according to each disease</strong><br><table><tr><td><img src="https://a.tiles.mapbox.com/v4/marker/pin-m+f00.png?access_token=pk.eyJ1IjoiZG9vbWFobiIsImEiOiJjanJva3g0MGowNGFvNDRwNmNmdXk3Ymx2In0.dHjGj5mZVbr0Hi_jD_oNkw" width="30px" height="70px"></td><td>Influenza</td></tr><tr><td><img src="https://a.tiles.mapbox.com/v4/marker/pin-m+00f.png?access_token=pk.eyJ1IjoiZG9vbWFobiIsImEiOiJjanJva3g0MGowNGFvNDRwNmNmdXk3Ymx2In0.dHjGj5mZVbr0Hi_jD_oNkw" width="30px" height="70px"></td><td>Gastroenteritis</td></tr><tr><td><img src="https://a.tiles.mapbox.com/v4/marker/pin-m+fd0.png?access_token=pk.eyJ1IjoiZG9vbWFobiIsImEiOiJjanJva3g0MGowNGFvNDRwNmNmdXk3Ymx2In0.dHjGj5mZVbr0Hi_jD_oNkw" width="30px" height="70px"></td><td>Conjunctivitis</td></tr><tr><td><img src="https://a.tiles.mapbox.com/v4/marker/pin-m+080.png?access_token=pk.eyJ1IjoiZG9vbWFobiIsImEiOiJjanJva3g0MGowNGFvNDRwNmNmdXk3Ymx2In0.dHjGj5mZVbr0Hi_jD_oNkw" width="30px" height="70px"></td><td>Respiratory Infection</td></tr></table>').addTo(map);
 
-            })
-                  });
-   return marker;
-}
-function setMarkerYellow(latlng) {
-    var marker;
-   marker = L.marker(latlng,
-            { icon: L.icon({ 
-                iconUrl: "{{url_for('static', filename='img/yellow_marker.png')}}",
-                iconSize:[26, 41],
-                iconAnchor: latlng
-        })
-                  });
-   return marker;
-}
    
-
 </script>
 </div>
         </div>

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Maurihealth Disease Analytics</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <!-- https://fonts.google.com/specimen/Roboto -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/fontawesome.min.css')}}">
@@ -16,7 +18,6 @@
 
     <!--custom css file-->
     <link rel="stylesheet" href="{{url_for('static', filename='css/custom_file.css')}}">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <script src="{{url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
@@ -143,9 +144,18 @@
                     </p>
                 </div>
             </div>
+            <div class = "row" style="padding: 20px;">
+                <div class="col" style="border-style: solid; border-width: 2px; border-color: #f5a623; padding: 20px;">
+                    
+                        <h2 class="text-white"> <i class="fas fa-chart-area"></i> Interactive Graph </h2>
+                    <p class="text-white"> 
+                    Click one of the buttons to display an interactive graph. This graph will allow you to see predicted figures for each day until March 2020 as well as actual figures for previous days. </p>
+                    
+                </div>
+            </div>
             <div class="row tm-content-row">
                 <div class="col-12 tm-block-col">
-                        <h2 class="tm-block-title">Interactive graphs</h2>
+                        <!--<h2 class="tm-block-title">Interactive graphs</h2>-->
                         <div class="map-container">
   <div class="inner-basic division-map div-toggle" data-target=".division-details" id="divisiondetail">
     <button class="map-point-sm w3-button w3-orange w3-hover-black" data-show=".darwin">
@@ -183,7 +193,7 @@
 <div class="map-container">
   <div class="inner-basic division-details">
     <div class="initialmsg">
-      <p>Choose button above</p>
+      <p class="text-white">Choose button above</p>
     </div>
     <div class="darwin hide">
         <div style="padding-bottom:56.25%; position:relative; display:block; width: 100%">
@@ -209,6 +219,50 @@
 </div>
                 
         </div>
+        <div class = "row" style="padding: 20px;">
+                <div class="col" style="border-style: solid; border-width: 2px; border-color: #f5a623; padding: 20px;">
+                    
+                        <h2 class="text-white mt-5 mb-5"> <i class="fas fa-chart-line"></i> Disease Trends </h2>
+                    <p class="text-white"> 
+                    The following four graphs shows the continuous trend of each infectious disease according to four components.
+                    <table class="text-white" border="5px" cellpadding="4px" cellspacing="4px">
+                    <tr>
+                    <th>Component</th>
+                    <th>Description</th>
+                    <th>Y-axis</th>
+                    <th>X-axis</th>
+                    </tr>
+                    <tr>
+
+                    <td>Trend</td>
+                    <td>Shows the tendency of an increase or decrease in number of cases for previous years, current year and the next year</td>
+                    <td>Represents average number of disease cases</td>
+                    <td>Represents the year</td>
+                </tr>
+                <tr>
+                    <td>Weekly</td>
+                    <td>Shows the tendency of an increase or decrease in the number of cases based on the specific days of the week. Positive y-axis values mean that every week during that specific day, number of disease cases increase by that value. Negative y-axis values mean that every week, during that specific day number of disease cases decrease by that value</td>
+                    <td>Represents value of change for number of disease cases
+                    </td>
+                    <td>Represents the day of the week</td>
+                </tr>
+                <tr>
+                    <td>Yearly</td>
+                    <td>Shows the tendency of an increase or decrease in the number of disease cases based on specific months of the year. Positive y-axis values mean that every year during that specific month, number of disease cases increase by that value. Negative y-axis values mean that every year during that specific month, number of disease cases decrease by that value</td>
+                    <td>Represents value of change for number of disease cases</td>
+                    <td>Represents the month of the year</td>
+                </tr>
+                <tr>
+                    <td>Daily</td>
+                    <td>Shows the tendency of an increase or decrease in the number of disease cases based on specific hours of the day. Positive y-axis values mean that every day during that specific hour, number of disease cases increase by that value. Negative y-axis values mean that every day during that specific hour, number of disease cases decrease by that value
+                    </td>
+                    <td>Represents value of change for number of disease cases
+                    </td>
+                    <td>Represents the hour of the day</td>
+                </tr>
+            </table>
+                </div>
+            </div>
                 
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
                     <div class="tm-bg-primary-dark tm-block tm-block-scroll">
