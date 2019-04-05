@@ -64,6 +64,14 @@ def getLocationCoord(loc):
 	lat = location.latitude
 	return (long, lat)
 
+def getLocationText(coord):
+    global lo
+    geolocator = Nominatim()
+    lo = geolocator.reverse(coord)
+    add = lo.address.split(',')
+    print(add[0])
+    return add[0]
+
 def retrieve_analysedData(diseaseDB,value):
     collection = diseaseDB
     #input_analysedData = collection.find({})
@@ -105,6 +113,7 @@ class RandomThread(Thread):
             for document in stream:
                 print(document)
                 doc = document['fullDocument']
+                # handling data from facebook scraper
                 try:
                     loc = doc['location']
                     print(loc)
@@ -112,16 +121,23 @@ class RandomThread(Thread):
                         long, lat = getLocationCoord(loc)
                     else:
                         print("Failed to get location coordinates due to no location text")
+                        continue
+                # handling data from twitter scraper
                 except:
                     lat = doc['latitude']
                     long = doc['longitude']
+                    coor = str(lat) + ", " + str(long)
+                    loc = getLocationText(coor)
 
-                disease = doc['diseasetype']
-                time = doc['date']
-                loc = doc['location']
+                if loc != "Not found":
+                    disease = doc['diseasetype']
+                    time = doc['date']
+                    loc = doc['location']
 
-
-                socketio.emit('newdata', {'lat': lat, 'lng': long, 'dis': disease, 'time': time, 'location':loc}, namespace='/test')
+                    socketio.emit('newdata', {'lat': lat, 'lng': long, 'dis': disease, 'time': time, 'location':loc}, namespace='/test')
+                else:
+                    print("Discarding event due to no location")
+                    continue
 
 
     def listen(self):
