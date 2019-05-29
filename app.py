@@ -13,6 +13,13 @@ from geopy.geocoders import Nominatim
 
 DB_URI = 'mongodb+srv://fyp_admin:fyp_pwd@cluster0-oov30.mongodb.net/test?retryWrites=true'
 
+#############################################update image############################################
+import gridfs
+client = pymongo.MongoClient(DB_URI)
+db = client.testing
+fs=gridfs.GridFS(db)
+import codecs
+#####################################################################################################
 
 def getDiseaseInfo():
     # parse an xml file by name
@@ -191,7 +198,22 @@ def predict():
 
 @app.route("/detect/")
 def detect():
-    return render_template('detect.html')
+    #return render_template('detect.html')
+    flu_image = fs.get_last_version("influenza").read()
+    base64_data = codecs.encode(flu_image, 'base64')
+    new_fluimage = base64_data.decode('utf-8')
+    gastro_image = fs.get_last_version("gastro").read()
+    base64_data = codecs.encode(gastro_image, 'base64')
+    new_gastroimage = base64_data.decode('utf-8')
+    conjunctivitis_image = fs.get_last_version("conjunctivitis").read()
+    base64_data = codecs.encode(conjunctivitis_image, 'base64')
+    new_conjunctivitisimage = base64_data.decode('utf-8')
+    rpi_image = fs.get_last_version("respiratoryinfection").read()
+    base64_data = codecs.encode(rpi_image, 'base64')
+    new_rpiimage = base64_data.decode('utf-8')
+    return render_template('detect.html', flu=new_fluimage, gastro=new_gastroimage, conj=new_conjunctivitisimage,
+                           resp=new_rpiimage)
+
 
 @app.route("/search/",methods=["GET", "POST"])
 def search():

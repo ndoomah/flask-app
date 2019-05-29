@@ -144,12 +144,12 @@
                 </div>
             </div>
             <!-- row -->
-            <div class="row tm-content-row">
+                        <div class="row tm-content-row">
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
                     <div class="tm-bg-primary-dark tm-block" style="max-height: 700px;">
                         <h2 class="tm-block-title">Influenza</h2>
                         <div id="lineChart">
-                            <img src="{{url_for('static', filename='img/flu.png')}}" width="100%" height="100%" />
+                            <img src="data:image/png;base64,{{flu}}" alt="" width="450" height="350">
 
                         </div>
                     </div>
@@ -158,7 +158,7 @@
                     <div class="tm-bg-primary-dark tm-block" style="max-height: 700px;">
                         <h2 class="tm-block-title">Gastroenteritis</h2>
                         <div id="barChart">
-                            <img src="{{url_for('static', filename='img/gastro.png')}}" width="100%" height="100%" />
+                            <img src="data:image/png;base64,{{gastro}}" alt="" width="450" height="350">
                         </div>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                         <h2 class="tm-block-title">Conjunctivitis</h2>
                         <div id="pieChartContainer">
                             <div id="pieChart" class="chartjs-render-monitor" width="200" height="200">
-                                <img src="{{url_for('static', filename='img/conj.png')}}" width="100%" height="100%" />
+                                <img src="data:image/png;base64,{{conj}}" alt="" width="450" height="350">
                             </div>
                         </div>
                     </div>
@@ -176,7 +176,8 @@
                     <div class="tm-bg-primary-dark tm-block " style="max-height: 700px;">
                         <h2 class="tm-block-title">Respiratory Infection</h2>
                             <div id="pieChart1" class="chartjs-render-monitor" width="200" height="200">
-                                <img src="{{url_for('static', filename='img/respiratoryinfection.png')}}" width="100%" height="100%" />
+                               <!-- <img src="{{url_for('static', filename='img/respiratoryinfection.png')}}" width="100%" height="100%" />-->
+                                <img src="data:image/png;base64,{{resp}}" alt="" width="450" height="350">
                             </div>
 
                     </div>
