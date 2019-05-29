@@ -76,8 +76,8 @@ def getLocationText(coord):
     geolocator = Nominatim()
     lo = geolocator.reverse(coord)
     add = lo.address.split(',')
-    print(add[0])
-    return add[0]
+    n = len(add)
+    return add[n - 4]
 
 def retrieve_analysedData(diseaseDB,value):
     collection = diseaseDB
@@ -139,7 +139,7 @@ class RandomThread(Thread):
                 if loc != "Not found":
                     disease = doc['diseasetype']
                     time = doc['date']
-                    loc = doc['location']
+                    #loc = doc['location']
 
                     socketio.emit('newdata', {'lat': lat, 'lng': long, 'dis': disease, 'time': time, 'location':loc}, namespace='/test')
                 else:
@@ -194,7 +194,21 @@ def map_realtime():
 
 @app.route("/predict")
 def predict():
-    return render_template('predict.html')
+    #return render_template('predict.html')
+    flu_image = fs.get_last_version("influenzaPredict").read()
+    base64_data = codecs.encode(flu_image, 'base64')
+    new_fluimage = base64_data.decode('utf-8')
+    gastro_image = fs.get_last_version("gastroPredict").read()
+    base64_data = codecs.encode(gastro_image, 'base64')
+    new_gastroimage = base64_data.decode('utf-8')
+    conjunctivitis_image = fs.get_last_version("conjunctivitisPredict").read()
+    base64_data = codecs.encode(conjunctivitis_image, 'base64')
+    new_conjunctivitisimage = base64_data.decode('utf-8')
+    rpi_image = fs.get_last_version("respiratoryinfectionPredict").read()
+    base64_data = codecs.encode(rpi_image, 'base64')
+    new_rpiimage = base64_data.decode('utf-8')
+    return render_template('predict.html', fluP=new_fluimage, gastroP=new_gastroimage, conjP=new_conjunctivitisimage,
+                           respP=new_rpiimage)
 
 @app.route("/detect/")
 def detect():
