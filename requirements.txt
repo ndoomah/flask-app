@@ -43,7 +43,7 @@ MarkupSafe==1.1.0
 matplotlib==3.0.2
 monotonic==1.5
 munch==2.3.2
-nltk==3.3
+nltk==3.4.5
 numpy==1.16.0
 oauthlib==2.1.0
 packaging==19.0
